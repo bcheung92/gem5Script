@@ -4,18 +4,22 @@ import re
 import os
 inFilename = sys.argv[1]
 if os.path.isfile(inFilename):
-    namelength = inFilename.rfind(".")
-    name = inFilename[0:namelength]
-    exten = inFilename[namelength:]
-    outFilename =  "conflict_distribute" + exten
-print "inFilename:", inFilename
+    namelength = inFilename.rfind(".") # find . index to note the length of the inputfile,the length of the input file doesn't include the extension
+    name = inFilename[0:namelength] # the name of the  input file 
+    exten = inFilename[namelength:]   # the extension of the input file 
+    outFilename =  "conflict_distribute" + exten # define the outfile
+
+#print the file name  
+print "inFilename:", inFilename 
 print "outFilename:", outFilename
 
+#to develop a read and wite object 
 length=100
 fpRead = open(inFilename, "r")
 fpWrite = open(outFilename, "w+")
 
-
+#to develop the re pattern
+                                                                                                    
 #linePattern = re.compile(r'.*(Original_Cache_Trace)(::)([0-9]+)(\s+)([0-9]+)(\s+)')
 linePattern = re.compile(r'.*(system.cpu0.dcache.original_stack_distribute::samples)(\s+)([0-9]+)')
 linePattern1 = re.compile(r'.*(system.cpu0.dcache.original_stack_distribute::)([0-9]+)(\s+)([0-9]+)')
