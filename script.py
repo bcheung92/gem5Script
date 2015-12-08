@@ -9,20 +9,20 @@ if os.path.isfile(inFilename):
 	exten = inFilename[namelength:]
 	outFilename = "event_name"+exten
 
-print "inFilename:", inFilename
-print "outFilename:", outFilename
+#print "inFilename:", inFilename
+#print "outFilename:", outFilename
 
 fpRead = open(inFilename, "r")
 fpWrite = open(outFilename, "w+")
 
-dcachePattern = re.complier(r'.*(dcache).*([0-9]+)')
-icachePattern = re.complier(r'.*(icache).*([0-9]+)')
-l2cachePattern = re.complier(r'.*(l2).*([0-9]+)')
-tlbPattern = re.complier(r'.*(stage2_tlb).*([0-9]+)') 
-dtbPattern = re.complier(r'.*(dtb).*([0-9]+)')
-itbPattern = re.complier(r'.*(itb).*([0-9]+)')
-threadbeginPattern = re.complier(r'.*Begin Simulation Statistics.*')
-threadendPattern =re.complier(r'.*End Simulation Statistics.*')
+dcachePattern = re.compile(r'.*(dcache).*([0-9]+)')
+icachePattern = re.compile(r'.*(icache).*([0-9]+)')
+l2cachePattern = re.compile(r'.*(l2).*([0-9]+)')
+tlbPattern = re.compile(r'.*(stage2_tlb).*([0-9]+)') 
+dtbPattern = re.compile(r'.*(dtb).*([0-9]+)')
+itbPattern = re.compile(r'.*(itb).*([0-9]+)')
+threadbeginPattern = re.compile(r'.*Begin Simulation Statistics.*')
+threadendPattern =re.compile(r'.*End Simulation Statistics.*')
 lines = fpRead.readline()
 #linesPattern = re.complier(r'(.*)(?=\s#)')
 
