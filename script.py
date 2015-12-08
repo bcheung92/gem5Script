@@ -1,7 +1,7 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 import sys
 import re
-import os 
+import os
 inFilename = sys.argv[1]
 if os.path.isfile(inFilename):
 	namelength = inFilename.rfind(".")
@@ -18,7 +18,7 @@ fpWrite = open(outFilename, "w+")
 dcachePattern = re.compile(r'.*(dcache).*([0-9]+)')
 icachePattern = re.compile(r'.*(icache).*([0-9]+)')
 l2cachePattern = re.compile(r'.*(l2).*([0-9]+)')
-tlbPattern = re.compile(r'.*(stage2_tlb).*([0-9]+)') 
+tlbPattern = re.compile(r'.*(stage2_tlb).*([0-9]+)')
 dtbPattern = re.compile(r'.*(dtb).*([0-9]+)')
 itbPattern = re.compile(r'.*(itb).*([0-9]+)')
 threadbeginPattern = re.compile(r'.*Begin Simulation Statistics.*')
@@ -35,8 +35,8 @@ while lines:
 	dtbmatch = dtbPattern.match(lines)
 	itbmatch = itbPattern.match(lines)
 	threadbeginmatch = threadbeginPattern.match(lines)
-	threadendmatch = threadendPattern.match(lines) 
-	#lineswrite = linesmatch.group(1)
+	threadendmatch = threadendPattern.match(lines)
+        #lineswrite = linesmatch.group(1)
 
 	if threadmatch:
 		if dcachematch:
@@ -60,6 +60,6 @@ while lines:
 	if threadendPattern:
 		fpWrite.write("\n")
 		continue
-    lines = fpRead.readline()
+        lines = fpRead.readline()
 fpRead.close()
 fpWrite.close()
