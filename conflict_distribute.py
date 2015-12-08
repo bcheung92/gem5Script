@@ -21,15 +21,16 @@ fpWrite = open(outFilename, "w+")
 #to develop the re pattern
                                                                                                     
 #linePattern = re.compile(r'.*(Original_Cache_Trace)(::)([0-9]+)(\s+)([0-9]+)(\s+)')
-linePattern = re.compile(r'.*(system.cpu0.dcache.original_stack_distribute::samples)(\s+)([0-9]+)')
-linePattern1 = re.compile(r'.*(system.cpu0.dcache.original_stack_distribute::)([0-9]+)(\s+)([0-9]+)')
-lines = fpRead.readline()
+linePattern = re.compile(r'.*(system.cpu0.dcache.original_stack_distribute::samples)(\s+)([0-9]+)') #re pattern
+linePattern1 = re.compile(r'.*(system.cpu0.dcache.original_stack_distribute::)([0-9]+)(\s+)([0-9]+)')#re pattern
+lines = fpRead.readline() #read for each line 
+
 while lines:
 #print lines.split(',')[1]
-    match1 = linePattern.match(lines)
+    match1 = linePattern.match(lines)# to judge the match result of the linepattern
     if match1:
 #        fpWrite.write("%s \t" %match1.group(3))
-	other=int(match1.group(3))
+	other=int(match1.group(3))  # int method  translate the num to int 
 #	print other
 	k=0
         distance_last=-1
