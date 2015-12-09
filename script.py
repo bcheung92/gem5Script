@@ -7,61 +7,78 @@ if os.path.isfile(inFilename):
 	namelength = inFilename.rfind(".")
 	name = inFilename[0:namelength]
 	exten = inFilename[namelength:]
-	outFilename = "event_name"+exten
+	outFilename = name+"-collect"+exten
 
-#print "inFilename:", inFilename
-#print "outFilename:", outFilename
+print "inFilename:", inFilename
+print "outFilename:", outFilename
 
 fpRead = open(inFilename, "r")
 fpWrite = open(outFilename, "w+")
 
-dcachePattern = re.compile(r'.*(dcache).* ([0-9]+)')
-icachePattern = re.compile(r'.*(icache).* ([0-9]+)')
-l2cachePattern = re.compile(r'.*(l2).* ([0-9]+)')
-tlbPattern = re.compile(r'.*(stage2_tlb).* ([0-9]+)')
-dtbPattern = re.compile(r'.*(dtb).* ([0-9]+)')
-itbPattern = re.compile(r'.*(itb).* ([0-9]+)')
+dcachePattern = re.compile(r'.*(dcache).* ([0-9|\.]+)')
+icachePattern = re.compile(r'.*(icache).* ([0-9|\.]+)')
+l2cachePattern = re.compile(r'.*(l2).* ([0-9|\.]+)')
+tlbPattern = re.compile(r'.*(stage2_tlb).* ([0-9|\.]+)')
+dtbPattern = re.compile(r'.*(dtb).* ([0-9|\.]+)')
+itbPattern = re.compile(r'.*(itb).* ([0-9|\.]+)')
 threadbeginPattern = re.compile(r'.*Begin Simulation Statistics.*')
 threadendPattern =re.compile(r'.*End Simulation Statistics.*')
 lines = fpRead.readline()
 #linesPattern = re.complier(r'(.*)(?=\s#)')
 
 while lines:
-	linesmatch = linesPatter.match(lines)
-	dcachematch = dcachePattern.match(lines)
-	icachematch = icachePattern.match(lines)
-	l2match = l2cachePattern.match(lines)
-	tlbmatch = tlbPattern.match(lines)
-	dtbmatch = dtbPattern.match(lines)
-	itbmatch = itbPattern.match(lines)
+#	linesmatch = linesPatter.match(lines)
 	threadbeginmatch = threadbeginPattern.match(lines)
-	threadendmatch = threadendPattern.match(lines)
+#	threadendmatch = threadendPattern.match(lines)
         #lineswrite = linesmatch.group(1)
-
+        print "----------------------- reading lines------------------"
 	if threadbeginmatch:
+                print "------------------------ entering thread ------------------"
 		threadlines = fpRead.readline()
+#                print threadlines
+#                dcachematch = dcachePattern.match(threadlines)
+#                icachematch = icachePattern.match(threadlines)
+#                l2match = l2cachePattern.match(threadlines)
+#                tlbmatch = tlbPattern.match(threadlines)
+#                dtbmatch = dtbPattern.match(threadlines)
+#                itbmatch = itbPattern.match(threadlines)
+#                threadendmatch = threadendPattern.match(threadlines)
 		while threadlines:
-			if dcachematch:
+
+#                print threadlines
+                        dcachematch = dcachePattern.match(threadlines)
+                        icachematch = icachePattern.match(threadlines)
+                        l2match = l2cachePattern.match(threadlines)
+                        tlbmatch = tlbPattern.match(threadlines)
+                        dtbmatch = dtbPattern.match(threadlines)
+                        itbmatch = itbPattern.match(threadlines)
+                        threadendmatch = threadendPattern.match(threadlines)
+#                        print threadlines
+                        if dcachematch:
+#                                print "dcachematch!!!"
 				fpWrite.write("%s " %(dcachematch.group(2)))
-				continue
+			#	continue
 			if icachematch:
 				fpWrite.write("%s " %(icachematch.group(2)))
-				continue
+			#	continue
 			if l2match:
 				fpWrite.write("%s " %(l2match.group(2)))
-				continue
+			#	continue
 			if tlbmatch:
+#                               print "tlbmatch!!!"
 				fpWrite.write("%s " %(tlbmatch.group(2)))
-				continue
+			#	continue
 			if dtbmatch:
 				fpWrite.write("%s " %(dtbmatch.group(2)))
-				continue
+			#	continue
 			if itbmatch:
 				fpWrite.write("%s " %(itbmatch.group(2)))
-				continue
-			if threadendPattern:
+			#	continue
+			if threadendmatch:
 				fpWrite.write("\n")
-				continue
+                                print "------------------------ thread collection done!! --------------------"
+				break
+                        threadlines = fpRead.readline()
         lines = fpRead.readline()
 fpRead.close()
 fpWrite.close()
