@@ -69,7 +69,7 @@ while lines:
             # dtbmatch = dtbPattern.match(threadlines)
             # itbmatch = itbPattern.match(threadlines)
                         threadendmatch = threadendPattern.match(threadlines)
-#           print threadlines
+#                        print threadlines
                         if dcachemissmatch:
 				print "dcachemissmatch!!!"
 				fpWrite.write("%s " %(dcachemissmatch.group(3)))
@@ -104,7 +104,7 @@ while lines:
 				fpWrite.write("\n")
                                 print "------------------------ thread collection done!! --------------------"
 				break
-                threadlines = fpRead.readline()
+                        threadlines = fpRead.readline()
         lines = fpRead.readline()
 fpRead.close()
 fpWrite.close()
