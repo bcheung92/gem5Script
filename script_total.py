@@ -7,7 +7,7 @@ if os.path.isfile(inFilename):
 	namelength = inFilename.rfind(".")
 	name = inFilename[0:namelength]
 	exten = inFilename[namelength:]
-	outFilename = name+"-collect"+exten
+	outFilename = name+"-collect-special"+exten
 
 print "inFilename:", inFilename
 print "outFilename:", outFilename
@@ -17,7 +17,7 @@ fpWrite = open(outFilename, "w+")
 
 
 dcachemissPattern = re.compile(r'.*(dcache.overall_misses).*(total).* ([0-9|\.]+)') #overall dcache misses
-dcachemshrPattern = re.compile(r'.*(dcache.overall_mshr).*(total).* ([0-9|\.]+)') #overall dcache MSHR misses 
+dcachemshrPattern = re.compile(r'.*(dcache.overall_mshr).*(total).* ([0-9|\.]+)') #overall dcache MSHR misses
 icachemissPattern = re.compile(r'.*(icache.overall_misses).*(total).* ([0-9|\.]+)') #overall icache misses
 icachemshrPattern = re.compile(r'.*(icache.overall_mshr).*(total).* ([0-9|\.]+)') #overall icache MSHR misses
 l2cachemissPattern = re.compile(r'.*(l2.overall_misses).*(total).* ([0-9|\.]+)')#overall l2cache misses
@@ -31,7 +31,7 @@ itbmissPattern = re.compile(r'.*(itb.misses).* ([0-9|\.]+)')
 # dtbPattern = re.compile(r'.*(dtb).* ([0-9|\.]+)')
 # itbPattern = re.compile(r'.*(itb).* ([0-9|\.]+)')
 threadbeginPattern = re.compile(r'.*Begin Simulation Statistics.*')
-#threadendPattern =re.compile(r'.*End Simulation Statistics.*')
+threadendPattern =re.compile(r'.*End Simulation Statistics.*')
 lines = fpRead.readline()
 # #linesPattern = re.complier(r'(.*)(?=\s#)')
 
@@ -40,9 +40,9 @@ while lines:
 	threadbeginmatch = threadbeginPattern.match(lines)
 #	threadendmatch = threadendPattern.match(lines)
         #lineswrite = linesmatch.group(1)
-    print "----------------------- reading lines------------------"
+        print "----------------------- reading lines------------------"
 	if threadbeginmatch:
-        print "------------------------ entering thread -------------------"
+                print "------------------------ entering thread -------------------"
 		threadlines = fpRead.readline()
 #                print threadlines
 #                dcachematch = dcachePattern.match(threadlines)
@@ -68,9 +68,9 @@ while lines:
             # tlbmatch = tlbPattern.match(threadlines)
             # dtbmatch = dtbPattern.match(threadlines)
             # itbmatch = itbPattern.match(threadlines)
-            threadendmatch = threadendPattern.match(threadlines)
+                        threadendmatch = threadendPattern.match(threadlines)
 #           print threadlines
-            if dcachemissmatch:
+                        if dcachemissmatch:
 				print "dcachemissmatch!!!"
 				fpWrite.write("%s " %(dcachemissmatch.group(3)))
 			#	continue
@@ -83,7 +83,7 @@ while lines:
 				fpWrite.write("%s " %(icachemissmatch.group(3)))
 			#	continue
 			if icachemshrmatch:
-                print "icachemshrmatch!!!"
+                                print "icachemshrmatch!!!"
 				fpWrite.write("%s " %(icachemshrmatch.group(3)))
 			#	continue
 			if l2cachemissmatch:
@@ -102,9 +102,9 @@ while lines:
 				fpWrite.write("%s " %(itbmissmatch.group(2)))
 			if threadendmatch:
 				fpWrite.write("\n")
-                print "------------------------ thread collection done!! --------------------"
+                                print "------------------------ thread collection done!! --------------------"
 				break
-            threadlines = fpRead.readline()
-    lines = fpRead.readline()
+                threadlines = fpRead.readline()
+        lines = fpRead.readline()
 fpRead.close()
 fpWrite.close()
