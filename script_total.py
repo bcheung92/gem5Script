@@ -17,9 +17,9 @@ fpWrite = open(outFilename, "w+")
 
 
 dcachemissPattern = re.compile(r'.*(dcache.overall_misses).*(total).* ([0-9|\.]+)') #overall dcache misses
-dcachemshrPattern = re.compile(r'.*(dcache.overall_mshr).*(total).* ([0-9|\.]+)') #overall dcache MSHR misses
+dcachemshrPattern = re.compile(r'.*(dcache.overall_mshr_misses).*(total).* ([0-9|\.]+)') #overall dcache MSHR misses
 icachemissPattern = re.compile(r'.*(icache.overall_misses).*(total).* ([0-9|\.]+)') #overall icache misses
-icachemshrPattern = re.compile(r'.*(icache.overall_mshr).*(total).* ([0-9|\.]+)') #overall icache MSHR misses
+icachemshrPattern = re.compile(r'.*(icache.overall_mshr_misses).*(total).* ([0-9|\.]+)') #overall icache MSHR misses
 l2cachemissPattern = re.compile(r'.*(l2.overall_misses).*(total).* ([0-9|\.]+)')#overall l2cache misses
 l2cachemshrPattern = re.compile(r'.*(l2.overall_mshr).*(total).* ([0-9|\.]+)')# overall l2 MSHR misses
 dtbmissPattern = re.compile(r'.*(dtb.misses).* ([0-9|\.]+)')
